@@ -3,34 +3,378 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bokk : tontines, cotisations et cagnottes</title>
-<meta name="description" content="Bokk tient le registre de vos tontines, cotisations et cagnottes de groupe, au Sénégal.">
+<title>Bokk : la tontine, sans le cahier</title>
+<meta name="description" content="Bokk tient les comptes de ton groupe : tontines, caisses d'associations, cagnottes et coffres d'épargne, depuis ton téléphone. Au Sénégal.">
+<meta name="theme-color" content="#3048D9">
+<meta property="og:title" content="Bokk : la tontine, sans le cahier">
+<meta property="og:description" content="Qui a cotisé, combien le groupe a réuni, à qui revient le tour : tout est dans Bokk.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bokkapp.com/">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="preload" href="assets/Manrope-ExtraBold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="assets/accueil.css">
 </head>
 <body>
-<header class="haut"><div class="page">
-  <a class="marque" href="./"><img src="assets/bokk-b.png" alt="">Bokk</a>
-  <nav class="liens"><a href="assistance/">Assistance</a></nav>
-</div></header>
-<main class="page">
-<section class="hero">
-  <img src="assets/bokk-b.png" alt="Logo de Bokk">
-  <h1>Bokk</h1>
-  <p>Tes tontines, cotisations et cagnottes, au même endroit. Chaque membre voit qui a cotisé, combien le groupe a réuni et à qui revient le prochain tour.</p>
-  <span class="pastille">Bientôt sur l’App Store et Google Play</span>
-</section>
-<section class="cartes">
-  <div class="carte"><h3>Tontines</h3><p>Les tours, les cotisations de chacun, le bénéficiaire du mois : tout est écrit.</p></div>
-  <div class="carte"><h3>Groupes et caisses</h3><p>Associations, collègues, famille : une caisse commune que tous les membres peuvent suivre.</p></div>
-  <div class="carte"><h3>Décisions votées</h3><p>Un retrait ou un échange de tours se décide ensemble, selon les règles du groupe.</p></div>
-  <div class="carte"><h3>Pas d’argent chez Bokk</h3><p>Tu paies avec Wave, Orange Money ou en espèces. Bokk tient le registre, celui qui reçoit confirme.</p></div>
-</section>
+
+<!-- Icônes (traits arrondis, couleur du texte) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cadenas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-registre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
+    <symbol id="i-vote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-telephone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-tour" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/></symbol>
+    <symbol id="i-cadeau" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2.5"/><path d="M12 8v13M3 13h18"/><path d="M12 8C10.5 4.5 7 4 7 6.2 7 8 10 8 12 8zM12 8c1.5-3.5 5-4 5-1.8C17 8 14 8 12 8z"/></symbol>
+    <symbol id="i-projet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4.5L17 13H5"/></symbol>
+    <symbol id="i-coffre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="12" cy="12" r="3.5"/><path d="M12 8.5v1M12 14.5v1M7 20v1.5M17 20v1.5"/></symbol>
+    <symbol id="i-groupe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18.2 14.2A6.5 6.5 0 0 1 21.5 20"/></symbol>
+    <symbol id="i-cloche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-maison" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></symbol>
+    <symbol id="i-recu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h4"/></symbol>
+    <symbol id="i-moi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-rejoindre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M19 8v6M16 11h6"/></symbol>
+    <symbol id="i-deposer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></symbol>
+    <symbol id="i-retirer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V9"/><path d="m7 14 5-5 5 5"/><path d="M5 4h14"/></symbol>
+    <symbol id="i-bouclier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-discret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 18 18"/><path d="M10.6 6.1c.5-.1.9-.1 1.4-.1 5 0 9 6 9 6a16 16 0 0 1-3.2 3.8M6.1 7.9C4.1 9.5 3 12 3 12s4 6 9 6c1.4 0 2.7-.4 3.9-1"/></symbol>
+    <symbol id="i-coche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+    <symbol id="i-fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-etoile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+  </defs>
+</svg>
+
+<header class="entete">
+  <div class="conteneur">
+    <a class="logo" href="./" aria-label="Bokk, accueil"><img src="assets/b-3d.png" alt="" width="26" height="38">Bokk</a>
+    <nav class="menu" aria-label="Menu principal">
+      <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#frais">Frais</a>
+      <a href="#securite">Sécurité</a>
+      <a href="#questions">Questions</a>
+    </nav>
+    <a class="bouton bouton-bleu" href="#telecharger">Bientôt disponible</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="accroche">
+    <div class="sphere" aria-hidden="true"></div>
+    <div class="conteneur">
+      <span class="pastille"><span class="point"></span>Tontines · Cagnottes · Coffres</span>
+      <h1><span class="ligne">La tontine,</span> <span class="marque-bleu">sans le cahier.</span></h1>
+      <p class="sous-titre">Bokk tient les comptes de ton groupe : qui a cotisé, combien vous avez réuni, à qui revient le tour. Tes tontines, cagnottes et coffres, depuis ton téléphone.</p>
+      <div class="actions">
+        <a class="bouton bouton-bleu" href="#fonctionnalites">Découvrir Bokk <svg aria-hidden="true"><use href="#i-fleche"/></svg></a>
+        <a class="bouton bouton-blanc" href="#frais">Voir les frais</a>
+      </div>
+      <div class="confiance">
+        <span><svg aria-hidden="true"><use href="#i-cadenas"/></svg>Code secret à chaque paiement</span>
+        <span><svg aria-hidden="true"><use href="#i-registre"/></svg>Chaque mouvement visible</span>
+        <span><svg aria-hidden="true"><use href="#i-vote"/></svg>Retraits votés par le groupe</span>
+        <span><svg aria-hidden="true"><use href="#i-telephone"/></svg>Wave, Orange Money, Free Money</span>
+      </div>
+
+      <div class="scene" aria-label="Aperçu de l'appli Bokk">
+        <div class="telephone">
+          <div class="ecran">
+            <div class="app-haut">
+              <div class="app-qui">
+                <span class="avatar">AF</span>
+                <span><small>Bonjour,</small><strong>Awa</strong></span>
+              </div>
+              <span class="cloche"><svg aria-hidden="true"><use href="#i-cloche"/></svg></span>
+            </div>
+            <div class="app-solde">
+              <small>Total épargné</small>
+              <span class="montant">245 000 F</span>
+              <div class="dispo">Disponible : 35 000 F · Coffres : 60 000 F</div>
+            </div>
+            <div class="app-raccourcis">
+              <span><i><svg aria-hidden="true"><use href="#i-rejoindre"/></svg></i>Rejoindre</span>
+              <span><i><svg aria-hidden="true"><use href="#i-deposer"/></svg></i>Déposer</span>
+              <span><i><svg aria-hidden="true"><use href="#i-retirer"/></svg></i>Retirer</span>
+              <span><i><svg aria-hidden="true"><use href="#i-coffre"/></svg></i>Coffre</span>
+            </div>
+            <div class="app-titre">Mes activités <a>Tout voir</a></div>
+            <div class="app-carte">
+              <span class="anneau" style="--p:66"><span>8/12</span></span>
+              <span class="texte"><strong>Tontine des cousines</strong><small>10 000 F · chaque mois</small><br><span class="puce puce-vert">À jour</span></span>
+            </div>
+            <div class="app-carte">
+              <span class="anneau" style="--p:62"><span>62 %</span></span>
+              <span class="texte"><strong>Mariage de Fatou</strong><small>186 000 F réunis</small><br><span class="puce puce-bleu">Cagnotte</span></span>
+            </div>
+            <div class="app-carte">
+              <span class="anneau" style="--p:40"><span>40 %</span></span>
+              <span class="texte"><strong>Coffre Tabaski</strong><small>Objectif 150 000 F</small><br><span class="puce puce-ambre">Verrouillé</span></span>
+            </div>
+            <div class="app-barre" aria-hidden="true">
+              <span class="actif"><svg><use href="#i-maison"/></svg>Accueil</span>
+              <span><svg><use href="#i-groupe"/></svg>Communautés</span>
+              <span><span class="plus"><svg><use href="#i-plus"/></svg></span></span>
+              <span><svg><use href="#i-recu"/></svg>Historique</span>
+              <span><svg><use href="#i-moi"/></svg>Profil</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flottante f1">
+          <span class="icone"><svg aria-hidden="true"><use href="#i-coche"/></svg></span>
+          <span><strong>Moussa a cotisé</strong><small>Tontine des cousines · à l'instant</small></span>
+        </div>
+        <div class="flottante f2">
+          <span class="icone"><svg aria-hidden="true"><use href="#i-etoile"/></svg></span>
+          <span><small>C'est ton tour, Awa !</small><span class="gros">120 000 F</span></span>
+        </div>
+        <div class="flottante f3">
+          <span class="icone"><svg aria-hidden="true"><use href="#i-vote"/></svg></span>
+          <span><strong>Retrait approuvé</strong><small>12 membres sur 12 ont voté</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fonctionnalites">
+    <div class="conteneur">
+      <div class="entete-section">
+        <span class="surtitre">Fonctionnalités</span>
+        <h2>Toutes les façons d'épargner <span class="sans-coupure"><span class="marque-citron">ensemble</span>.</span></h2>
+        <p>Une tontine entre cousines, la caisse d'une association, une cagnotte pour un mariage ou un coffre pour la Tabaski : chaque activité a ses règles, et chaque membre voit où en est l'argent.</p>
+      </div>
+      <div class="grille">
+        <article class="carte carte-bleue large">
+          <span class="tuile tuile-citron"><svg aria-hidden="true"><use href="#i-tour"/></svg></span>
+          <h3>Tontine</h3>
+          <p>Les tours s'enchaînent et la collecte est versée automatiquement à la bénéficiaire. Besoin d'avancer ton tour ? Propose un échange, le groupe vote.</p>
+          <div class="details"><span>Tirage ou ordre d'arrivée</span><span>Plusieurs noms par personne</span><span>Échange de tours voté</span></div>
+        </article>
+        <article class="carte large">
+          <span class="tuile tuile-pale"><svg aria-hidden="true"><use href="#i-groupe"/></svg></span>
+          <h3>Communauté et caisse</h3>
+          <p>Association, collègues, famille : une caisse commune, des cotisations régulières, et des retraits approuvés par les membres.</p>
+          <div class="details"><span>Cotisation mensuelle</span><span>Retraits votés</span><span>Prêts entre membres</span></div>
+        </article>
+        <article class="carte tiers">
+          <span class="tuile tuile-pale"><svg aria-hidden="true"><use href="#i-cadeau"/></svg></span>
+          <h3>Cagnotte</h3>
+          <p>Un mariage, un baptême, un coup dur : chacun participe, puis l'organisateur remet la somme. Montant libre ou fixe, participations anonymes si vous le voulez.</p>
+        </article>
+        <article class="carte tiers">
+          <span class="tuile tuile-pale"><svg aria-hidden="true"><use href="#i-projet"/></svg></span>
+          <h3>Projet</h3>
+          <p>Financer ensemble un projet commun, ou épargner chacun sa part vers un même objectif, avec une date.</p>
+        </article>
+        <article class="carte tiers">
+          <span class="tuile tuile-citron"><svg aria-hidden="true"><use href="#i-coffre"/></svg></span>
+          <h3>Coffre</h3>
+          <p>Ton épargne personnelle : libre, ou verrouillée jusqu'à une date ou un objectif. Pour ne pas toucher à l'argent de la Tabaski.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-grise">
+    <div class="conteneur">
+      <div class="entete-section centre">
+        <span class="surtitre">Comment ça marche</span>
+        <h2>Trois gestes, <span class="sans-coupure"><span class="marque-bleu">zéro dispute</span>.</span></h2>
+        <p>Bokk remplace le cahier, les captures d'écran et les relances dans le groupe WhatsApp.</p>
+      </div>
+      <div class="etapes">
+        <article class="etape">
+          <h3>Crée ou rejoins</h3>
+          <p>Crée ta tontine en quelques écrans, puis partage son code. Tes proches la rejoignent avec le lien, et tu acceptes chaque demande.</p>
+          <span class="code">BK-COUSINES</span>
+        </article>
+        <article class="etape">
+          <h3>Cotise en un geste</h3>
+          <p>Paie depuis ton compte Bokk ou avec ton mobile money. Les frais s'affichent avant de valider, ton code secret confirme.</p>
+          <div class="moyens"><span class="moyen-bokk">Compte Bokk</span><span class="moyen-wave">Wave</span><span class="moyen-om">Orange Money</span><span class="moyen-free">Free Money</span></div>
+        </article>
+        <article class="etape">
+          <h3>Suis tout, en direct</h3>
+          <p>Qui a cotisé, combien est réuni, à qui revient le tour : tous les membres voient la même chose, au même moment. Et Bokk relance à ta place.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="frais">
+    <div class="conteneur">
+      <div class="entete-section centre">
+        <span class="surtitre">Frais</span>
+        <h2>Des frais <span class="marque-bleu">simples</span> et <span class="sans-coupure"><span class="marque-citron">visibles</span>.</span></h2>
+        <p>Créer un compte est gratuit. Tu vois toujours le total avant de payer, et rien n'est retenu sur la collecte.</p>
+      </div>
+      <div class="frais">
+        <div class="gauche">
+          <h3>Pour payer une cotisation</h3>
+          <div class="tarif"><span>Depuis ton compte Bokk</span><strong class="zero">0 F</strong></div>
+          <div class="tarif"><span>Wave</span><strong>2,5 % + 100 F</strong></div>
+          <div class="tarif"><span>Orange Money · Free Money</span><strong>3,5 % + 100 F</strong></div>
+          <ul class="coches">
+            <li><svg aria-hidden="true"><use href="#i-coche"/></svg>Les frais sont payés par celui qui paie, jamais pris sur la collecte.</li>
+            <li><svg aria-hidden="true"><use href="#i-coche"/></svg>Le montant d'un tour est celui que reçoit la bénéficiaire.</li>
+            <li><svg aria-hidden="true"><use href="#i-coche"/></svg>Le total s'affiche avant chaque paiement.</li>
+          </ul>
+        </div>
+        <div class="calcul">
+          <h3>Exemple : une cotisation de 10 000 F par Wave</h3>
+          <div class="ligne-calcul"><span>Cotisation</span><strong>10 000 F</strong></div>
+          <div class="ligne-calcul"><span>Frais Wave (2,5 %)</span><strong>250 F</strong></div>
+          <div class="ligne-calcul"><span>Frais fixes</span><strong>100 F</strong></div>
+          <div class="total"><span>Tu paies</span><strong>10 350 F</strong></div>
+          <div class="recu"><span>Ta tontine reçoit</span><strong>10 000 F</strong></div>
+          <p class="note">Grille de la phase de test, susceptible d'évoluer. Elle est toujours rappelée dans l'appli avant de payer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-grise" id="securite">
+    <div class="conteneur securite">
+      <div>
+        <div class="entete-section">
+          <span class="surtitre">Sécurité</span>
+          <h2>Ton argent, <span class="sans-coupure"><span class="marque-bleu">sous bonne garde</span>.</span></h2>
+          <p>Chaque paiement demande ton code secret, chaque sortie d'argent passe par le groupe, et chaque écriture reste visible.</p>
+        </div>
+        <div class="liste-securite" style="margin-top:36px">
+          <div class="point-securite">
+            <span class="tuile tuile-bleu"><svg aria-hidden="true"><use href="#i-cadenas"/></svg></span>
+            <div><h3>Code secret</h3><p>Redemandé pour chaque paiement. L'appli se verrouille quand tu la quittes plus de deux minutes.</p></div>
+          </div>
+          <div class="point-securite">
+            <span class="tuile tuile-pale"><svg aria-hidden="true"><use href="#i-vote"/></svg></span>
+            <div><h3>Retraits votés</h3><p>L'argent d'une caisse ne sort qu'avec l'accord des membres, selon les règles du groupe.</p></div>
+          </div>
+          <div class="point-securite">
+            <span class="tuile tuile-pale"><svg aria-hidden="true"><use href="#i-registre"/></svg></span>
+            <div><h3>Registre ouvert</h3><p>Chaque cotisation, versement ou retrait est écrit et visible par les membres. Rien ne s'efface.</p></div>
+          </div>
+          <div class="point-securite">
+            <span class="tuile tuile-pale"><svg aria-hidden="true"><use href="#i-bouclier"/></svg></span>
+            <div><h3>Connexion chiffrée</h3><p>Tout ce qui circule entre ton téléphone et Bokk est chiffré.</p></div>
+          </div>
+          <div class="point-securite">
+            <span class="tuile tuile-pale"><svg aria-hidden="true"><use href="#i-discret"/></svg></span>
+            <div><h3>Notifications discrètes</h3><p>Aucun montant n'apparaît sur l'écran verrouillé de ton téléphone.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="clavier" aria-hidden="true">
+        <div class="question">Code secret</div>
+        <small>Pour payer 10 350 F</small>
+        <div class="points-code"><i class="plein"></i><i class="plein"></i><i></i><i></i></div>
+        <div class="touches">
+          <span>1</span><span>2</span><span>3</span>
+          <span>4</span><span>5</span><span>6</span>
+          <span>7</span><span>8</span><span>9</span>
+          <span class="vide"></span><span>0</span><span class="vide">⌫</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="conteneur">
+      <div class="entete-section centre">
+        <span class="surtitre">Feuille de route</span>
+        <h2>Construit <span class="sans-coupure"><span class="marque-citron">avec vous</span>.</span></h2>
+        <p>Bokk est en test avec ses premiers groupes. Voici ce qui marche déjà, et ce qui arrive.</p>
+      </div>
+      <div class="route">
+        <article class="carte">
+          <span class="etat etat-dispo">Disponible</span>
+          <h3>Tontines et échanges de tours</h3>
+          <p>Tours, calendrier, tirage au sort, échange de tours voté par tout le groupe.</p>
+        </article>
+        <article class="carte">
+          <span class="etat etat-dispo">Disponible</span>
+          <h3>Communautés et caisses</h3>
+          <p>Cotisations régulières, retraits et prêts approuvés par les membres.</p>
+        </article>
+        <article class="carte">
+          <span class="etat etat-dispo">Disponible</span>
+          <h3>Cagnottes et coffres</h3>
+          <p>Participations libres ou fixes, épargne libre ou verrouillée.</p>
+        </article>
+        <article class="carte">
+          <span class="etat etat-bientot">Bientôt</span>
+          <h3>Cagnottes sur le web</h3>
+          <p>Une page bokkapp.com pour partager ta cagnotte au-delà du groupe.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-grise" id="questions">
+    <div class="conteneur">
+      <div class="entete-section centre">
+        <span class="surtitre">Questions</span>
+        <h2>Tu te demandes peut-être…</h2>
+      </div>
+      <div class="questions">
+        <details open>
+          <summary>C'est quoi, Bokk ?</summary>
+          <p>Une appli pour tout ce qu'un groupe fait ensemble avec l'argent : tontines, caisses d'associations, cagnottes et épargne. Bokk tient les comptes, et chaque membre voit la même chose. « Bokk » veut dire « partager » en wolof.</p>
+        </details>
+        <details>
+          <summary>Combien ça coûte ?</summary>
+          <p>Créer un compte est gratuit. Payer depuis ton compte Bokk ne coûte rien. Seuls les paiements par Wave, Orange Money ou Free Money ont des frais, affichés avant que tu valides.</p>
+        </details>
+        <details>
+          <summary>Comment je paie ma cotisation ?</summary>
+          <p>Depuis ton compte Bokk, ou avec Wave, Orange Money ou Free Money. Tu peux aussi cotiser pour quelqu'un d'autre : c'est son échéance qui est réglée, et le reçu garde ton nom.</p>
+        </details>
+        <details>
+          <summary>Tous les membres doivent-ils avoir l'appli ?</summary>
+          <p>Oui : chacun rejoint la tontine avec son code ou son lien, puis l'organisateur accepte la demande. C'est ce qui permet à tout le monde de suivre les comptes et de voter.</p>
+        </details>
+        <details>
+          <summary>Qui décide d'un retrait ?</summary>
+          <p>Le groupe, selon ses règles : tous les membres, une partie d'entre eux, ou les personnes habilitées. Sans assez d'accords, l'argent ne sort pas.</p>
+        </details>
+        <details>
+          <summary>Quand Bokk sera-t-elle disponible ?</summary>
+          <p>Bokk est en test avec ses premiers groupes. Elle arrive bientôt sur l'App Store et sur Google Play.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section final" id="telecharger">
+    <div class="conteneur">
+      <div class="bandeau">
+        <h2>Ta prochaine tontine commence ici.</h2>
+        <p>Bokk arrive bientôt sur iPhone et sur Android.</p>
+        <div class="actions">
+          <span class="magasin"><svg aria-hidden="true"><use href="#i-telephone"/></svg><span><small>Bientôt sur</small><strong>l'App Store</strong></span></span>
+          <span class="magasin"><svg aria-hidden="true"><use href="#i-telephone"/></svg><span><small>Bientôt sur</small><strong>Google Play</strong></span></span>
+        </div>
+        <img src="assets/b-3d-blanc.png" alt="" aria-hidden="true">
+      </div>
+    </div>
+  </section>
 
 </main>
-<footer class="bas"><div class="page">
-  <span>© 2026 Bokk</span>
-  <span><a href="confidentialite/">Confidentialité</a> · <a href="conditions/">Conditions d’utilisation</a> · <a href="assistance/">Assistance</a> · <a href="supprimer-mon-compte/">Supprimer mon compte</a></span>
-</div></footer>
+
+<footer class="pied">
+  <div class="conteneur">
+    <div>
+      <a class="logo" href="./"><img src="assets/b-3d.png" alt="" width="26" height="38">Bokk</a>
+      <p>Tontines, cagnottes et épargne de groupe, au Sénégal.</p>
+    </div>
+    <div class="liens-pied">
+      <div><strong>Bokk</strong><a href="#fonctionnalites">Fonctionnalités</a><a href="#frais">Frais</a><a href="#securite">Sécurité</a><a href="#questions">Questions</a></div>
+      <div><strong>Aide</strong><a href="assistance/">Assistance</a><a href="supprimer-mon-compte/">Supprimer mon compte</a></div>
+      <div><strong>Légal</strong><a href="confidentialite/">Confidentialité</a><a href="conditions/">Conditions d'utilisation</a></div>
+    </div>
+  </div>
+  <div class="conteneur"><p class="mention">© 2026 Bokk. Bokk signifie « partager » en wolof.</p></div>
+</footer>
+
 </body>
 </html>
